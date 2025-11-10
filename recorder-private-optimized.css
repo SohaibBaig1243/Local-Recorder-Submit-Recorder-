@@ -1,0 +1,474 @@
+/* recorder-private-optimized.css
+   Mobile-first, responsive, iframe-friendly styling (video-only)
+*/
+
+/* Base vars */
+:root {
+    --bg-0: #f9fafb;
+    --card: #fff;
+    --muted: #6b7280;
+    --text: #111827;
+    --accent: #2563eb;
+    --accent-2: #3b82f6;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #e5e7eb;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-0)0%, #f3f4f6 100%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+body.embedded {
+    background: transparent;
+    font-size: 14px;
+}
+
+.app-container {
+    max-width: 920px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.app-title {
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.app-subtitle {
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Home */
+.home-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.recorder-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 50px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+    transition: transform .18s, box-shadow .18s;
+    cursor: pointer;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.recorder-card:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+.recorder-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.recorder-card-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+}
+
+.video-icon {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.recorder-card-title {
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* Recording screen */
+.recording-screen {
+    display: none;
+    width: 100%;
+    max-width: 920px;
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.recording-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.recording-title {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.recording-title-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+.back-button {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #374151;
+    padding: .5rem .9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Content */
+.recording-content {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Media preview */
+.media-preview {
+    background: #111827;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.hidden {
+  display: none !important;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.control-btn:hover {
+  background-color: #1d4ed8;
+}
+.control-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.video-preview {
+    aspect-ratio: 16/9;
+    width: 100%;
+    position: relative;
+    min-height: 240px;
+}
+
+.media-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: black;
+}
+
+.recording-status-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: none;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.recording-status-overlay.active {
+    display: block;
+}
+
+.recording-status-content {
+    background: rgba(0, 0, 0, 0.75);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.recording-status-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--danger);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+        opacity: .85;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.paused .recording-status-icon {
+    background: #f59e0b;
+    animation: none;
+}
+
+.recording-timer {
+    font-family: 'SF Mono', 'Roboto Mono', monospace;
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+/* Controls */
+.recording-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.control-button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-width: 130px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    transition: transform .12s, box-shadow .12s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.control-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.primary-button {
+    background: var(--accent);
+    color: #fff;
+}
+
+.success-button {
+    background: var(--success);
+    color: #fff;
+}
+
+.danger-button {
+    background: var(--danger);
+    color: #fff;
+}
+
+.secondary-button {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.control-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* Download */
+.download-section {
+    background: #f9fafb;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    display: none;
+}
+
+.download-section.active {
+    display: block;
+}
+
+.download-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--success);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 10px;
+}
+
+/* Utility */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Responsive */
+@media(max-width:768px) {
+    .app-container {
+        padding: 12px;
+    }
+
+    .video-preview {
+        min-height: 200px;
+        aspect-ratio: 16/9;
+    }
+
+    .control-button {
+        min-width: 120px;
+        padding: 11px 14px;
+        font-size: .95rem;
+    }
+}
+
+@media(max-width:480px) {
+    .app-container {
+        padding: 8px;
+    }
+
+    .video-preview {
+        min-height: 180px;
+    }
+
+    .control-button {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .recorder-card {
+        padding: 14px;
+    }
+}
+
+@media(max-height:500px) and (max-width:800px) {
+    body {
+        background: transparent;
+    }
+
+    .app-container {
+        padding: 8px;
+        min-height: auto;
+    }
+
+    .video-preview {
+        min-height: 140px;
+    }
+
+    .control-button {
+        padding: 8px 10px;
+        font-size: .9rem;
+        min-width: 100px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+.recorder-card:focus,
+.control-button:focus,
+.back-button:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+body.embedded .app-header {
+    display: none;
+}
+
+body.embedded .recorder-card {
+    padding: 50px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+body.embedded .recording-content {
+    padding: 12px;
+}
+
+body.embedded .control-button {
+    padding: 10px 12px;
+    font-size: .95rem;
+    min-width: 96px;
+}

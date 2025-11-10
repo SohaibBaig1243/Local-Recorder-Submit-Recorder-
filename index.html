@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <title>Video Recorder — Submit By Julia</title>
+    <link rel="stylesheet" href="recorder-private-optimized.css" />
+    <style>
+      html {
+        box-sizing: border-box;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      body.embed {
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body class="embed">
+    <div class="app-container" id="app">
+
+
+      <main class="main-content" role="main">
+        <section
+          id="homeScreen"
+          class="home-screen"
+          aria-label="Recorder selection"
+        >
+          <div
+            class="recorder-card"
+            onclick="startRecording('video')"
+            tabindex="0"
+            role="button"
+            aria-label="Start video recording"
+          >
+            <div class="recorder-card-icon video-icon">🎥</div>
+            <h2 class="recorder-card-title">Record Video</h2>
+          </div>
+          <div class="note text-center">
+            <small>Mobile & iframe friendly — allow camera & microphone</small>
+          </div>
+        </section>
+
+        <section
+          id="recordingScreen"
+          class="recording-screen"
+          aria-hidden="true"
+        >
+          <header class="recording-header">
+            <h2 class="recording-title">
+              <div id="recordingIcon" class="recording-title-icon video-icon">
+                🎥
+              </div>
+              <span id="recordingTypeTitle">Video Recording</span>
+            </h2>
+          </header>
+
+          <div class="recording-content">
+            <div class="media-preview" id="mediaPreview" aria-live="polite">
+              <div id="videoPreviewContainer" class="video-preview">
+                <video
+                  id="videoPreview"
+                  class="media-element"
+                  autoplay
+                  muted
+                  playsinline
+                ></video>
+                <video
+                  id="videoPlayback"
+                  class="media-element hidden"
+                  controls
+                  playsinline
+                ></video>
+              </div>
+
+              <div
+                id="recordingStatusOverlay"
+                class="recording-status-overlay"
+                aria-hidden="true"
+              >
+                <div class="recording-status-content">
+                  <div class="recording-status-icon">●</div>
+                  <div class="recording-status-text" id="recordingStatusText">
+                    Recording
+                  </div>
+                  <div class="recording-timer" id="recordingTimer">00:00</div>
+                </div>
+              </div>
+            </div>
+
+<div class="recording-controls" role="group" aria-label="Recording controls">
+  <button
+    id="startButton"
+    class="control-button primary-button"
+    onclick="toggleRecording()"
+    aria-pressed="false"
+    disabled
+  >
+    ⏺️ Start Recording
+  </button>
+  <button
+    id="pauseButton"
+    class="control-button danger-button hidden"
+    onclick="toggleRecording()"
+    aria-pressed="false"
+  >
+    ⏸️ Pause
+  </button>
+  <button
+    id="resumeButton"
+    class="control-button danger-button hidden"
+    onclick="toggleRecording()"
+    aria-pressed="false"
+  >
+    ▶️ Resume
+  </button>
+  <button
+    id="stopButton"
+    class="control-button secondary-button"
+    onclick="stopRecording()"
+    disabled
+  >
+    ⏹️ Finish
+  </button>
+</div>
+
+
+
+        </section>
+      </main>
+    </div>
+
+    <script src="recorder-private-optimized.js" defer></script>
+  </body>
+</html>
